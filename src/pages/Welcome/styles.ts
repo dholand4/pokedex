@@ -3,7 +3,7 @@ import styled, { css } from "styled-components/native";
 export const Container = styled.View`
     ${({theme}) => css`
     flex: 1;
-    background-color: ${theme.colors.backgroundWater};
+    background-color: ${theme.colors.backgroundCard.water};
     `}
 `;
 
@@ -17,7 +17,7 @@ export const WrapperAnimation = styled.View`
     ${({theme}) => css`
         width: 200px;
         height: 300px;
-        background-color: ${theme.colors.types.water};
+        background-color: ${theme.colors.boxType.water};
         border-radius: 100px;
 
         justify-content: center;
@@ -45,7 +45,7 @@ export const Footer  = styled.View`
 export const Title = styled.Text`
     ${({theme}) => css`
         font-size: 35px;
-        color: ${theme.colors.text_white};
+        color: ${theme.colors.text};
     `}
 `;
 
@@ -53,6 +53,6 @@ export const SubTitle = styled.Text`
     ${({theme}) => css`
         font-size: 16px;
         margin-top: 20px;
-        color: ${theme.colors.text_white};
+        color: ${theme.colors.text};
     `}
 `;
