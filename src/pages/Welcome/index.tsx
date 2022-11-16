@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styles'
 import AnimatedLottieView from 'lottie-react-native';
-import pokemonAnimation from './pokemon.json'
+import pokemonAnimation from './assets/pokemon.json';
 import { Button } from '../../components/Button';
 
 export function Welcome(){
