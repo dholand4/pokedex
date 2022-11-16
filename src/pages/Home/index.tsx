@@ -64,10 +64,11 @@ export function Home() {
     return(
     <S.Container>
         <FlatList 
+        
         ListHeaderComponent={
             <>
             <S.Header source={pokeballHeader} />
-            <S.Title>Pokédex</S.Title>
+            <S.Title> Pokédex</S.Title>
             </>
 
         }
@@ -77,13 +78,17 @@ export function Home() {
         }}
         data={pokemons}
         keyExtractor={pokemon => pokemon.id.toString()}
+        showsVerticalScrollIndicator={false}
         renderItem={({item: pokemon}) => (
-                <Card data={pokemon} 
+                <Card 
+                data={pokemon} 
                 onPress={() => {
                     handleNavigation(pokemon.id)
                 }} />
+        
         )}
         />
+        
     </S.Container>
     ) 
 }
