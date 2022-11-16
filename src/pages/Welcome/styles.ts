@@ -46,6 +46,7 @@ export const Title = styled.Text`
     ${({theme}) => css`
         font-size: 35px;
         color: ${theme.colors.text};
+        margin-top: 25px;
     `}
 `;
 

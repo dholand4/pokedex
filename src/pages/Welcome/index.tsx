@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styles'
 import AnimatedLottieView from 'lottie-react-native';
-import pokemonAnimation from './assets/pokemon.json';
+import pokemonAnimated from './assets/pokemon.json';
 import { Button } from '../../components/Button';
 
 export function Welcome(){
@@ -9,7 +9,7 @@ export function Welcome(){
     <S.Content>
         <S.WrapperAnimation>
             <S.WrapperImage>
-            <AnimatedLottieView style={{width: 200}} autoPlay source={pokemonAnimation} loop />
+            <AnimatedLottieView style={{width: 200}} autoPlay source={pokemonAnimated} loop />
             </S.WrapperImage>
 
         
@@ -23,4 +23,5 @@ export function Welcome(){
     </S.Footer>
 
     </S.Container>
+    
 }
