@@ -3,6 +3,7 @@ import { TouchableOpacityProps } from "react-native";
 
 import dotsImage from '../../assets/img/dots.png';
 import pokeball from '../../assets/img/pokeballCard.png' 
+import { FadeAnimation } from "../FadeAnimation";
 
 import * as S from './styles';
 
@@ -40,17 +41,20 @@ export function Card({data, ...rest}: Props) {
                 </S.PokemonContentType>
 
             </S.LeftSide>
+            
             <S.RightSide>
                 <S.PokeballDetail source={pokeball} />
-
+                <FadeAnimation>
             <S.PokemonImage
             source={{
               uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`,
             }}
           />
 
-                
+</FadeAnimation>
             </S.RightSide>
+            
+
         </S.PokemonCard>
 
     )

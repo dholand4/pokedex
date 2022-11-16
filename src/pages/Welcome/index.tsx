@@ -2,9 +2,19 @@ import React from 'react';
 import * as S from './styles'
 import AnimatedLottieView from 'lottie-react-native';
 import pokemonAnimated from './assets/pokemon.json';
+import {useNavigation} from '@react-navigation/native' 
 import { Button } from '../../components/Button';
 
-export function Welcome(){
+export function Welcome() {
+    const {navigate} = useNavigation();
+
+    function handleNavigation() {
+        navigate('Home')
+    }
+
+
+
+
     return <S.Container>
     <S.Content>
         <S.WrapperAnimation>
@@ -18,7 +28,10 @@ export function Welcome(){
         <S.SubTitle>Encontre todos os pokémons em um só lugar!</S.SubTitle>
     </S.Content>
     <S.Footer>
-        <Button title='Iniciar'></Button>
+        <Button 
+            title='Iniciar' 
+            onPress={handleNavigation}>
+        </Button>
 
     </S.Footer>
 
