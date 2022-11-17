@@ -10,6 +10,7 @@ import dots from '../../assets/img/dots.png';
 
 import * as S from './styles';
 import { FadeAnimation } from '../../components/FadeAnimation';
+import { Load } from '../../components/Load';
 
 type RouteParams = {
     pokemonId: number;
@@ -37,8 +38,16 @@ export type TypeName =
 |'normal'
 |'bug'
 |'flying'
-|'eletric'
+|'electric'
 |'ground'
+|'fighting'
+|'rock'
+|'psychic'
+|'ghost'
+|'ice'
+|'dragon'
+
+
 
 type PokemonType = {
     type: {
@@ -101,7 +110,9 @@ export function About() {
 
     return <>
     {load ? <> 
-        <Text style={{marginTop: 200}}>Carregando ...</Text>
+        <S.LoadingScreen>
+      <Load />
+    </S.LoadingScreen>
         </> : <ScrollView style={{flex: 1, backgroundColor: '#FFF'}}>
         <S.Header type={pokemon.types[0].type.name} >
             <S.BackButton onPress={handleGoBack}>

@@ -29,7 +29,7 @@ export function Welcome() {
     </S.Content>
     <S.Footer>
         <Button 
-            title='Iniciar' 
+            title='Entrar' 
             onPress={handleNavigation}>
         </Button>
 

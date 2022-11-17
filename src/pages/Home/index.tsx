@@ -1,94 +1,114 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
-import { Card, Pokemon, PokemonType } from '../../components/Card';
-import pokeballHeader from '../../assets/img/pokeball.png'
+import React, { useState, useEffect } from 'react';
+import { Alert, FlatList } from 'react-native';
+
+import { Card } from '../../components/Card';
+import { Load } from '../../components/Load';
+
+import pokeballImage from '../../assets/img/pokeball.png';
+
 import api from '../../service/api';
 
-import * as S from './styles'
+import * as S from './styles';
 import { useNavigation } from '@react-navigation/native';
 
-type Request= {
-    id: number;
-    types: PokemonType[]
+type PokemonType = {
+  type: {
+    name: string;
+  };
+};
+
+export interface Pokemon {
+  name: string;
+  url: string;
+  id: number;
+  types: PokemonType[];
+}
+
+export interface Request {
+  id: number;
+  types: PokemonType[];
 }
 
 export function Home() {
+  const { navigate } = useNavigation();
 
-    const [pokemons, setPokemons] = useState<Pokemon[]>([])
+  const [load, setLoad] = useState<boolean>(true);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
-    const {navigate} = useNavigation();
+  useEffect(() => {
+    async function getPokemons(): Promise<void> {
+      try {
+        const response = await api.get('/pokemon?limit=151&offset=00');
+        const { results } = response.data;
 
-    function handleNavigation(pokemonId: number) {
-        navigate('About', {
+        const payloadPokemons = await Promise.all(
+          results.map(async (pokemon: Pokemon) => {
+            const { id, types } = await getMoreInfoAboutPokemonsByUrl(
+              pokemon.url,
+            );
 
-            pokemonId,
-        }
-        
-        )
+            return {
+              name: pokemon.name,
+              id,
+              types,
+            };
+          }),
+        );
+
+        setPokemons(payloadPokemons as Pokemon[]);
+      } catch (err) {
+        Alert.alert('ops, algo de errado aconteceu, tente mais tarde');
+      } finally {
+        setLoad(false);
+      }
     }
 
+    getPokemons();
+  }, []);
 
-    useEffect(() => {
-        async function getAllPokemons() {
-            const response = await api.get('/pokemon')
-            const { results } = response.data;
+  async function getMoreInfoAboutPokemonsByUrl(url: string): Promise<Request> {
+    const response = await api.get(url);
 
-            const payLoadPokemon = await Promise.all(
-                results.map(async (pokemon: Pokemon) => {
-                    const {id, types} = await getMoreInfo(pokemon.url)
+    const { id, types } = response.data as Request;
 
-                    return {
-                        name: pokemon.name,
-                        id,
-                        types
-                    }
+    return { id, types };
+  }
 
-                })
-            )
-                setPokemons(payLoadPokemon)
-        }
-        getAllPokemons()
-
-    }, [])
-
-    async function getMoreInfo(url: string): Promise<Request> {
-        const response = await api.get(url)
-        const {id, types} = response.data;
-
-        return{
-            id, types
-        }
-    }
-
-
-    return(
-    <S.Container>
-        <FlatList 
-        
-        ListHeaderComponent={
+  function handleNavigationPokemonDetail(pokemonId: number) {
+    navigate('About', {
+      pokemonId,
+    });
+  }
+  return load ? (
+    <S.LoadingScreen>
+      <Load />
+    </S.LoadingScreen>
+  ) : (
+    <>
+      <S.Container>
+        <FlatList
+          ListHeaderComponent={
             <>
-            <S.Header source={pokeballHeader} />
-            <S.Title> Pokédex</S.Title>
+              <S.Header source={pokeballImage} />
+              <S.Title> Pokédex</S.Title>
             </>
-
-        }
-        contentContainerStyle = {{
-            paddingHorizontal: 20
-
-        }}
-        data={pokemons}
-        keyExtractor={pokemon => pokemon.id.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item: pokemon}) => (
-                <Card 
-                data={pokemon} 
-                onPress={() => {
-                    handleNavigation(pokemon.id)
-                }} />
-        
-        )}
+          }
+          contentContainerStyle={{
+            paddingHorizontal: 20,
+          }}
+          data={pokemons}
+          keyExtractor={pokemon => pokemon.id.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item: pokemon }) => (
+            <Card
+              data={pokemon}
+              onPress={() => {
+                handleNavigationPokemonDetail(pokemon.id);
+              }}
+            />
+          )}
         />
-        
-    </S.Container>
-    ) 
+      </S.Container>
+    </>
+  );
 }

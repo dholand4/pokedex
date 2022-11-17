@@ -169,3 +169,9 @@ export const Ability = styled.Text`
     color: ${theme.colors.detail};
 `}
 `;
+
+export const LoadingScreen = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

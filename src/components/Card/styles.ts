@@ -84,8 +84,9 @@ export const RightSide = styled.View`
 
 export const PokemonImage = styled.Image`
     margin-top: -40px;
-    width: 130px;
-    height: 130px;
+    margin-right: -20px;
+    width: 140px;
+    height: 140px;
 `;
 
 export const PokeballDetail = styled.Image`
