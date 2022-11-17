@@ -21,7 +21,8 @@ export default {
         psychic: '#C4A203',
         ghost: '#302728',
         ice: '#345372',
-        dragon: '#E8B272'
+        dragon: '#E8B272',
+        steel: '#4F5457'
 
 
       },
@@ -42,7 +43,8 @@ export default {
         psychic: '#AD9110',
         ghost: '#917990',
         ice: '#89B4C9',
-        dragon: '#9B8165'
+        dragon: '#9B8165',
+        steel: '#899598'
       },
     },
   };

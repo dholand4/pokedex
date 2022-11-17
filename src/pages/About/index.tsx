@@ -46,6 +46,7 @@ export type TypeName =
 |'ghost'
 |'ice'
 |'dragon'
+|'steel'
 
 
 
