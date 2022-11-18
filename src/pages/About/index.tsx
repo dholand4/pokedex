@@ -165,7 +165,8 @@ export function About() {
                 </S.StatusBar>
             )
             }
-            <S.Title type={pokemon.types[0].type.name}>Abilities</S.Title>
+            <S.Title type={pokemon.types[0].type.name} 
+            key={pokemon.types[0].type.name} > Abilities</S.Title>
             {pokemon.abilities.map(currentAbility =>  <S.Ability>
                 {currentAbility.ability.name}
             </S.Ability>
