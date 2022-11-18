@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, FlatList, ScrollView, TextInput } from 'react-native';
+import { Alert, FlatList} from 'react-native';
 
 import { Card } from '../../components/Card';
 import { Load } from '../../components/Load';
 
 import pokeballImage from '../../assets/img/pokeball.png';
-import {Feather} from '@expo/vector-icons';
 
 import api from '../../service/api';
 
 import * as S from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { Search } from '../../components/Search';
 
 type PokemonType = {
   type: {
@@ -36,8 +36,8 @@ export function Home() {
   const [load, setLoad] = useState<boolean>(true);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
-  const [list, setList] = useState(pokemons);
-  const [searchPokemons, setSearchPokemons] = useState('');
+
+  const [searchPokemons, setSearchPokemons] = useState([]);
 
 
 
@@ -62,6 +62,7 @@ export function Home() {
         );
 
         setPokemons(payloadPokemons as Pokemon[]);
+        setSearchPokemons(payloadPokemons as Pokemon[])
       } catch (err) {
         Alert.alert('ops, algo de errado aconteceu, tente mais tarde');
       } finally {
@@ -88,22 +89,12 @@ export function Home() {
     });
   }
 
+  function search(sp) {
+    let arr = JSON.parse(JSON.stringify(searchPokemons));
 
-
-
-
-  useEffect(() => {
-    if(searchPokemons === '') {
-      setList(pokemons);
-    } else {
-        setList(
-          pokemons.filter(item => item.name.toLowerCase().indexOf(searchPokemons.toLowerCase()) > -1)
-
-        );
-    }
-
-  }, [searchPokemons]);
-
+    setPokemons(arr.filter(
+      (item) => item.name.toLowerCase().includes(sp.toLowerCase())));
+  }
   
   return load ? (
     <S.LoadingScreen>
@@ -118,31 +109,21 @@ export function Home() {
             
               <S.Header source={pokeballImage} />
               <S.Title>Pokédex</S.Title>
-              <S.ContainerSearchPokemon>
-              <S.ContainerSearch>
-              <Feather  name="search" size={20} color="#747476" />
-              <S.SearchPokemon
-                value={searchPokemons}
-                placeholder='Qual Pokémon você está procurando?'
-                onChangeText={setSearchPokemons}
-              >
-              </S.SearchPokemon>
-              </S.ContainerSearch> 
-                </S.ContainerSearchPokemon> 
+                <Search search={(sp: string) => search(sp)} />
 
     </>
           }
           contentContainerStyle={{
             paddingHorizontal: 20,
           }}
-          data={list}
-          // keyExtractor={pokemon => pokemon.id.toString()}
+          data={pokemons}
+          keyExtractor={pokemon => pokemon.id.toString()}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item: pokemon }) => (
+          renderItem={({ item: pokemons }) => (
             <Card
-              data={pokemon}
+              data={pokemons}
               onPress={() => {
-                handleNavigationPokemonDetail(pokemon.id);
+                handleNavigationPokemonDetail(pokemons.id);
               }}
             />
           )}

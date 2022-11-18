@@ -38,24 +38,3 @@ export const Title = styled.Text`
     margin-left: 12px;
   `}
 `;
-
-export const ContainerSearchPokemon = styled.View`
-  align-items: center;
-`;
-
-export const SearchPokemon = styled.TextInput`
-    font-size: 16px;
-    font-weight: 400;    
-  `;
-
-export const ContainerSearch = styled.View`
-width: 95%;
-flex-direction: row;
-padding: 20px 25px 20px 25px;
-border-radius: 10px;
-border-width: 0.5px;
-justify-content: space-between;
-align-items: center;
-`;
-
-
