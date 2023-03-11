@@ -16,7 +16,7 @@ Projeto **Pokedex**, projeto feito para listar os pokemons da api pokeapi.
 
 ## 📱 Preview do projeto
 
-<div>
+<div align="center">
   <img style="margin: 5px" alt="login" src="https://i.imgur.com/HJEd5o9.png" width="200">
   <img style="margin: 5px" alt="register" src="https://i.imgur.com/pDlqrJT.png" width="200">
   <img style="margin: 5px" alt="dashboard" src="https://i.imgur.com/GyMJJ4t.png" width="200">
